@@ -1,0 +1,21 @@
+{% extends 'main.html' %} {% block content %}
+
+<div class="container p-5 text-center">
+  <div class="row gx-3 gy-3">
+    {% for job in jobList %}
+    <div class="col-4">
+        <div class="card ">
+        <div class="card-body">
+          <h5 class="card-title"> {{job.Job_Name}} </h5>
+          <p class="card-text"> {{job.Description}} </p>
+          <a href=" {% url 'job' job.id %} " class="btn btn-primary">View Job</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+
+</div>
+
+{% endblock content %}
