@@ -1,0 +1,10 @@
+<!-- resumes/templates/resumes/delete_resume.html -->
+<h2>Confirm Deletion</h2>
+<p>Are you sure you want to delete {{ resume.user.username }}'s Resume?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, delete it</button>
+</form>
+
+<a href="{% url 'resume_list' %}">Cancel</a>

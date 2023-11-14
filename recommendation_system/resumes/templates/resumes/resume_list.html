@@ -1,0 +1,12 @@
+{% extends 'main.html' %}
+{% block content %}
+<ul>
+    {% for resume in user_resumes %}
+        <li>
+            {{ resume.user.username }}'s Resume - 
+            <a href="{% url 'view_resume' resume.id %}" target="_blank">View Resume</a>| <a href="{% url 'delete_resume' resume.id %}">Delete Resume</a>
+        </li>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock content %}
