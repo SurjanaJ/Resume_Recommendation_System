@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'jobs.apps.JobsConfig',
-    'resume.apps.ResumeConfig',
     'accounts.apps.AccountsConfig'
 ]
 
