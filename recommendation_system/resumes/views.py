@@ -1,7 +1,12 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Resume
 from .forms import ResumeUploadForm
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
+from django.contrib.auth.decorators import user_passes_test
+
+
+def is_admin(user):
+    return user.is_superuser
 
 def upload_resume(request):
     if request.method == 'POST':
@@ -16,12 +21,19 @@ def upload_resume(request):
     return render(request, 'resumes/upload_resume.html', {'form': form})
 
 def resume_list(request):
-    user_resumes = Resume.objects.filter(user=request.user)
-    return render(request, 'resumes/resume_list.html', {'user_resumes': user_resumes})
+    if request.user.is_superuser:
+        all_resumes = Resume.objects.all()
+    else:
+        all_resumes = Resume.objects.filter(user=request.user)
+    
+    return render(request, 'resumes/resume_list.html', {'all_resumes': all_resumes})
 
 
 def view_resume(request, resume_id):
-    resume = get_object_or_404(Resume, id=resume_id, user=request.user)
+    resume = get_object_or_404(Resume, id=resume_id)
+
+    if not request.user.is_superuser and request.user != resume.user:
+        return HttpResponseForbidden("You don't have permission to view this resume.")
     
     with open(resume.pdf_file.path, 'rb') as pdf_file:
         response = HttpResponse(pdf_file.read(), content_type='application/pdf')
