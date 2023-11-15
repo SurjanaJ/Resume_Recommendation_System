@@ -1,0 +1,29 @@
+{% extends 'main.html' %} {% block content %}
+<h2>Admin Profile</h2>
+<div class="container p-5 bg-light">
+    <div class="display-6">Jobs Posted</div>
+    {% if admin_jobs %}
+    <div class="row">
+        {% for job in admin_jobs %}
+            <div class="col-4 mb-4">
+                <div class="card job-card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ job.title }}</h5>
+                        <p class="card-text">{{ job.description }}</p>
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ job.pdf_file.url }}" class="btn btn-outline-primary btn-small">View Full Description</a>
+                            <form method="post" action="{% url 'apply_job' job.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-success btn-small">Apply</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No job posts created by admin.</p>
+{% endif %}
+</div>
+{% endblock content %}

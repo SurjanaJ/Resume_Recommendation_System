@@ -3,7 +3,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.forms import inlineformset_factory
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
+
+from jobs.models import JobDescription
 
 from .forms import CreateUserForm
 
@@ -59,3 +61,12 @@ def home(request):
 @login_required(login_url='loginPage')
 def profile(request):
     return render(request, 'accounts/profile.html')
+
+def is_admin(user):
+    return user.is_superuser
+
+# @user_passes_test(is_admin, login_url = 'accounts/login/')
+def admin_profile(request):
+    # admin_jobs = JobDescription.objects.filter(created_by = request.user)
+    # return render(request, 'accounts/admin_profile.html', {'admin_jobs': admin_jobs})
+    return render(request, 'accounts/admin_profile.html')
