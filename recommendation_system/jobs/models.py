@@ -6,7 +6,7 @@ class JobDescription(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
     pdf_file = models.FileField(upload_to='jobs/job_descriptions/')
-    created_by = models.ForeignKey(User, on_delete= models.CASCADE)
+    # created_by = models.ForeignKey(User, on_delete= models.CASCADE)
 
     def __str__(self):
         return self.title

@@ -13,13 +13,13 @@ def is_admin(user):
 @user_passes_test(is_admin, login_url='accounts/login')
 def create_job(request):
     if request.method == 'POST':
-        form = JobDescriptionForm(request.POST, request.FILES, user=request.user)
+        form = JobDescriptionForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, 'Post created successfully')
             return redirect('job_list')
     else:
-        form = JobDescriptionForm(user=request.user)
+        form = JobDescriptionForm()
     return render(request, 'jobs/create_job.html', {'form': form})
 
 def jobs_list(request):
