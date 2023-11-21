@@ -5,7 +5,7 @@ from django.contrib.humanize.templatetags.humanize import naturaltime
 
 class JobDescription(models.Model):
     title = models.CharField(max_length=100)
-    description = models.TextField(null=True, blank=True)
+    description = models.TextField(max_length=70,null=True, blank=True)
     pdf_file = models.FileField(upload_to='jobs/job_descriptions/')
     location = models.CharField(max_length=500,null=True, blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
