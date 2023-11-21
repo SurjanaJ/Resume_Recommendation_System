@@ -1,0 +1,8 @@
+{% extends 'main.html' %}
+{% block content %}
+<!-- jobs/templates/jobs/application_success.html -->
+<h2>Application Successful</h2>
+<p>Your application for <strong>{{ job.title }}</strong> has been submitted successfully.</p>
+<a href="{% url 'job_list' %}">Back to Job List</a>
+
+{% endblock content %}

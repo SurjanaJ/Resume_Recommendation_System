@@ -1,0 +1,9 @@
+{% extends 'main.html' %}
+{% block content %}
+<!-- jobs/templates/jobs/no_resume_error.html -->
+<h2>Error</h2>
+<p>You need to upload a resume before applying to jobs.</p>
+<a href="{% url 'resume_list' %}">Upload Resume</a>
+
+
+{% endblock content %}

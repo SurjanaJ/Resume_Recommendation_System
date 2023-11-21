@@ -1,0 +1,22 @@
+{% extends 'main.html' %}
+{% block content %}
+{% if request.user.is_superuser %}
+<ul>
+    {% for resume in all_resumes %}
+        <li>
+            {{ resume.user.username }}'s Resume - 
+            <a href="{% url 'view_resume' resume.id %}" target="_blank">View Resume</a>
+        </li>
+        </li>
+    {% endfor %}
+</ul>
+{% else %}
+    <h2>Your Resumes</h2>
+    <ul>
+        {% for resume in all_resumes %}
+            <li> {{resume.user.username}}'s Resume -
+                <a href="{% url 'view_resume' resume.id %}" target="_blank">View Resume</a> | <a href="{% url 'delete_resume' resume.id %}">Delete Resume</a> </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+{% endblock content %}

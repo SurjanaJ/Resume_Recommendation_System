@@ -1,0 +1,32 @@
+{% extends 'main.html' %} {% block content %}
+<div class="container p-5 bg-light">
+<h2 class="display-6 mb-5">Available Jobs</h2>
+{% if job_descriptions %}
+<div class="row">
+    {% for job in job_descriptions %}
+    <div class="col-4 mb-4">
+    <div class="card job-card">
+      <div class="card-body">
+        <h5 class="card-title"> {{job.title}} </h5>
+        <p  class="card-text" > {{job.description}} </p>
+        <div class="d-flex justify-content-between">
+          <a href="{{job.pdf_file.url}}" class="btn btn-outline-primary btn-small ">View Full Description</a>
+          <form  method="post" action="{% url 'apply_job' job.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-success btn-small ">Apply</a>
+
+          </form>
+        </div>
+      </div>
+    </div>
+    </div>
+    
+    {% endfor %}
+  </div>
+  {% else %}
+  <div>Nothing to show</div>
+  {%endif %}
+  
+</div>
+</div>
+{% endblock content %}
