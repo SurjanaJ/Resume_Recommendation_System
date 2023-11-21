@@ -24,6 +24,9 @@ def create_job(request):
 
 def jobs_list(request):
     job_descriptions = JobDescription.objects.all()
+    print('JOB DESCRIPTION!!!')
+    print()
+    print(job_descriptions)
     return render(request, 'jobs/job_list.html', {'job_descriptions':job_descriptions})
     
 

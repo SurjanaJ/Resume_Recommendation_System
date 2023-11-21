@@ -1,7 +1,7 @@
 {% extends 'main.html' %} {% block content %}
 <div class="container p-5 bg-light">
 <h2 class="display-6 mb-5">Available Jobs</h2>
-{% if job_descriptions.length > 0 %}
+{% if job_descriptions %}
 <div class="row">
     {% for job in job_descriptions %}
     <div class="col-4 mb-4">
@@ -20,6 +20,7 @@
       </div>
     </div>
     </div>
+    
     {% endfor %}
   </div>
   {% else %}
