@@ -1,36 +1,51 @@
 {% extends 'main.html' %} {% block content %}
 <div class="container p-5 bg-light">
-    <div class="display-6 mb-5">Jobs Posted</div>
-    {% if admin_jobs %}
-    <div class="row">
-        {% for job in admin_jobs %}
-            <div class="col-4 mb-4">
-                <div class="card job-card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ job.title }}</h5>
-                        <p class="card-text">{{ job.description }}</p>
-                        
-                        <div class="d-flex justify-content-between">
-                            <a href="{{ job.pdf_file.url }}" class="btn btn-outline-primary btn-sm">View Full Description</a>
-                        
-                            <div class="d-flex justify-content-between gap-3 ">
-                                <a  style="cursor: pointer;"  href="{% url 'delete_job' job.id %}" class="delete-job-btn" data-job-id="{{ job.id }}">
-                                    <i class="fa-regular fa-trash-can fa-xl"  style="color: #d92626;"></i>                            
-                                </a>
-                                <a href="">
-                                    <i class="fa-regular fa-pen-to-square fa-xl"></i>
-                                </a></div>
-                            </div>
-                    </div>
-                </div>
+  <div class="display-6 mb-5">Jobs Posted</div>
+  {% if admin_jobs %}
+  <div class="row">
+    {% for job in admin_jobs %}
+    <div class="col-4 mb-4">
+      <div class="card job-card">
+        <div class="card-body">
+          <h5 class="card-title">{{ job.title }}</h5>
+          <p class="card-text">{{ job.description }}</p>
+
+          <div class="d-flex justify-content-between">
+            <a
+              href="{{ job.pdf_file.url }}"
+              class="btn btn-outline-primary btn-sm"
+              >View Full Description</a
+            >
+
+            <div class="d-flex justify-content-between gap-3">
+              <a
+                style="cursor: pointer"
+                href="{% url 'delete_job' job.id %}"
+                class="delete-job-btn"
+                data-job-id="{{ job.id }}"
+              >
+                <i
+                  class="fa-regular fa-trash-can fa-xl"
+                  style="color: #d92626"
+                ></i>
+              </a>
+              <a
+                style="cursor: pointer"
+                href="{% url 'update_job' job.id %}"
+                data-job-id="{{ job.id }}"
+              >
+                <i class="fa-regular fa-pen-to-square fa-xl"></i>
+              </a>
             </div>
-        {% endfor %}
+          </div>
+        </div>
+      </div>
     </div>
-{% else %}
-    <p>No job posts created by admin.</p>
-{% endif %}
+    {% endfor %}
+  </div>
+  {% else %}
+  <p>No job posts created by admin.</p>
+  {% endif %}
 </div>
-
-
 
 {% endblock content %}

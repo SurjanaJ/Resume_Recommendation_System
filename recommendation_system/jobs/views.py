@@ -46,3 +46,16 @@ def delete_job(request, job_id):
     job = get_object_or_404(JobDescription, id=job_id)
     job.delete()
     return redirect('admin_profile')  
+
+def update_job(request, job_id):
+    job = get_object_or_404(JobDescription, id=job_id)
+
+    if request.method == 'POST':
+        form = JobDescriptionForm(request.POST, request.FILES, instance=job)
+        if form.is_valid():
+            form.save()
+            return redirect('job_list')  # Redirect to the job list or any other appropriate page
+    else:
+        form = JobDescriptionForm(instance=job)
+
+    return render(request, 'jobs/update_job.html', {'form': form, 'job': job})
