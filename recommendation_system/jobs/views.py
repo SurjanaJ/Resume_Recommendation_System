@@ -15,8 +15,9 @@ def create_job(request):
     if request.method == 'POST':
         form = JobDescriptionForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Post created successfully')
+            job_description = form.save(commit=False)
+            job_description.created_by = request.user  # Associate with the current user
+            job_description.save()
             return redirect('job_list')
     else:
         form = JobDescriptionForm()
@@ -24,9 +25,6 @@ def create_job(request):
 
 def jobs_list(request):
     job_descriptions = JobDescription.objects.all()
-    print('JOB DESCRIPTION!!!')
-    print()
-    print(job_descriptions)
     return render(request, 'jobs/job_list.html', {'job_descriptions':job_descriptions})
     
 

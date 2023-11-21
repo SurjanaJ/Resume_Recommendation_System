@@ -1,4 +1,6 @@
-{% extends 'main.html' %} {% block content %}
+{% extends 'main.html' %}
+{% load humanize %}
+{% block content %}
 <div class="container p-5 bg-light">
 <h2 class="display-6 mb-5">Available Jobs</h2>
 {% if job_descriptions %}
@@ -8,6 +10,8 @@
     <div class="card job-card">
       <div class="card-body">
         <h5 class="card-title"> {{job.title}} </h5>
+        <span class="text-secondary "> {{job.time_elapsed}} by  {{job.created_by}} </span>
+        <hr>
         <p  class="card-text" > {{job.description}} </p>
         <div class="d-flex justify-content-between">
           <a href="{{job.pdf_file.url}}" class="btn btn-outline-primary btn-small ">View Full Description</a>

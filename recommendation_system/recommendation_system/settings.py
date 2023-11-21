@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'jobs.apps.JobsConfig',
     'accounts.apps.AccountsConfig',
-    'resumes.apps.ResumesConfig'
+    'resumes.apps.ResumesConfig',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [

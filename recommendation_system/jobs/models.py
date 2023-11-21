@@ -1,13 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import User
 from resumes.models import Resume
+from django.contrib.humanize.templatetags.humanize import naturaltime
 
 class JobDescription(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
     pdf_file = models.FileField(upload_to='jobs/job_descriptions/')
-    # created_by = models.ForeignKey(User, on_delete= models.CASCADE)
+    location = models.CharField(max_length=500,null=True, blank=True)
+    created_date = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
+
+    def time_elapsed(self):
+        return naturaltime(self.created_date)
+    
     def __str__(self):
         return self.title
     
