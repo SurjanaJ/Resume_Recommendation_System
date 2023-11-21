@@ -14,10 +14,10 @@
         <hr>
         <p  class="card-text" > {{job.description}} </p>
         <div class="d-flex justify-content-between">
-          <a href="{{job.pdf_file.url}}" class="btn btn-outline-primary btn-small ">View Full Description</a>
+          <a href="{{job.pdf_file.url}}" class="btn btn-outline-primary btn-sm ">View Full Description</a>
           <form  method="post" action="{% url 'apply_job' job.id %}">
         {% csrf_token %}
-        <button type="submit" class="btn btn-outline-success btn-small ">Apply</a>
+        <button type="submit" class="btn btn-outline-success btn-sm ">Apply</a>
 
           </form>
         </div>

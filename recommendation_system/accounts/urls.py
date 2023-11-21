@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-
+from jobs.views import delete_job
 
 urlpatterns =[
     path('', views.home, name = 'home'),
@@ -8,5 +8,6 @@ urlpatterns =[
     path('login/', views.loginPage, name='loginPage'),
     path('logout/', views.logoutUser, name='logoutUser'),
     path('register/', views.register, name='register'),
-    path('admin_profile/', views.admin_profile, name='admin_profile')
+    path('admin_profile/', views.admin_profile, name='admin_profile'),
+    path('delete_job/<int:job_id>/', delete_job, name='delete_job'),
 ]

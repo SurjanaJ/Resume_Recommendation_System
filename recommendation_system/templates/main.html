@@ -13,6 +13,10 @@
         .job-card:hover {
             box-shadow: 0 0 15px rgba(139, 138, 138, 0.3);
         }
+
+        .styled-btn:hover{
+           color: black;
+        }
     </style>
 </head>
 <body class="bg-secondary-subtle">
@@ -22,6 +26,21 @@
     {% endblock content %}
     
     {% include 'footer.html' %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Add event listeners for delete buttons
+            document.querySelectorAll('.delete-job-btn').forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    // You can add additional confirmation logic here if needed
+                    if (confirm('Are you sure you want to delete this job?')) {
+                        window.location.href = event.currentTarget.href;
+                    }
+                });
+            });
+        });
+        </script>
+    <script src="https://kit.fontawesome.com/01571c4cf7.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

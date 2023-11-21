@@ -1,7 +1,6 @@
 {% extends 'main.html' %} {% block content %}
-<h2>Admin Profile</h2>
 <div class="container p-5 bg-light">
-    <div class="display-6">Jobs Posted</div>
+    <div class="display-6 mb-5">Jobs Posted</div>
     {% if admin_jobs %}
     <div class="row">
         {% for job in admin_jobs %}
@@ -11,12 +10,10 @@
                         <h5 class="card-title">{{ job.title }}</h5>
                         <p class="card-text">{{ job.description }}</p>
                         <div class="d-flex justify-content-between">
-                            <a href="{{ job.pdf_file.url }}" class="btn btn-outline-primary btn-small">View Full Description</a>
-                            <form method="post" action="{% url 'apply_job' job.id %}">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-outline-success btn-small">Apply</button>
-                            </form>
-                        </div>
+                            <a href="{{ job.pdf_file.url }}" class="btn btn-outline-primary btn-sm">View Full Description</a>
+                            <a  style="cursor: pointer;"  href="{% url 'delete_job' job.id %}" class="delete-job-btn" data-job-id="{{ job.id }}">
+                                <i class="fa-regular fa-trash-can fa-xl"  style="color: #d92626;"></i>                            </div>
+                            </a>
                     </div>
                 </div>
             </div>
@@ -26,4 +23,7 @@
     <p>No job posts created by admin.</p>
 {% endif %}
 </div>
+
+
+
 {% endblock content %}

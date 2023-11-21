@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from jobs.forms import JobDescriptionForm
 
 from resumes.models import Resume
@@ -40,3 +40,9 @@ def apply_job(request, job_id):
         return render(request, 'jobs/application_success.html', {'job':job})
     else:
         return render(request, 'jobs/error.html')
+    
+
+def delete_job(request, job_id):
+    job = get_object_or_404(JobDescription, id=job_id)
+    job.delete()
+    return redirect('admin_profile')  
