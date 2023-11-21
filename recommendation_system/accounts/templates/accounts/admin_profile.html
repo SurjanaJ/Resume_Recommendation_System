@@ -9,11 +9,18 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ job.title }}</h5>
                         <p class="card-text">{{ job.description }}</p>
+                        
                         <div class="d-flex justify-content-between">
                             <a href="{{ job.pdf_file.url }}" class="btn btn-outline-primary btn-sm">View Full Description</a>
-                            <a  style="cursor: pointer;"  href="{% url 'delete_job' job.id %}" class="delete-job-btn" data-job-id="{{ job.id }}">
-                                <i class="fa-regular fa-trash-can fa-xl"  style="color: #d92626;"></i>                            </div>
-                            </a>
+                        
+                            <div class="d-flex justify-content-between gap-3 ">
+                                <a  style="cursor: pointer;"  href="{% url 'delete_job' job.id %}" class="delete-job-btn" data-job-id="{{ job.id }}">
+                                    <i class="fa-regular fa-trash-can fa-xl"  style="color: #d92626;"></i>                            
+                                </a>
+                                <a href="">
+                                    <i class="fa-regular fa-pen-to-square fa-xl"></i>
+                                </a></div>
+                            </div>
                     </div>
                 </div>
             </div>
