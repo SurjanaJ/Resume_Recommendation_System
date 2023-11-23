@@ -2,7 +2,14 @@
 {% load humanize %}
 {% block content %}
 <div class="container p-5 bg-light">
-<h2 class="display-6 mb-5">Available Jobs</h2>
+  <div class="bg-primary-subtle p-5">
+    <form class="d-flex" role="search">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+  </form>
+  </div>
+<hr>
+<h2 class="display-6 mt-5 mb-5">Available Jobs</h2>
 {% if job_descriptions %}
 <div class="row">
     {% for job in job_descriptions %}
