@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 from jobs.models import JobDescription
+from .models import Accounts
 
 from .forms import CreateUserForm
 
@@ -35,24 +36,34 @@ def logoutUser(request):
     logout(request)
     return redirect('loginPage')
 
+
 def register(request):
     if request.user.is_authenticated:
         return redirect('home')
-
     else:
         form = CreateUserForm()
 
         if request.method == 'POST':
             form = CreateUserForm(request.POST)
             if form.is_valid():
-                form.save()
-                user = form.cleaned_data.get('username')
-                messages.success(request, 'Account created for ' + user)
+                user = form.save()
+
+                # Get the role from the form
+                role = form.cleaned_data.get('role')
+
+                # Create an associated Accounts instance
+                account = Accounts.objects.create(account=user, role=role)
+
+                # Check if the role is 'employer' and set is_superuser accordingly
+                if role == 'employer':
+                    user.is_superuser = True
+                    user.save()
+
+                messages.success(request, 'Account created for ' + user.username)
                 return redirect('loginPage')
 
         context = {'form': form}
         return render(request, 'accounts/register.html', context)
-
 
 @login_required(login_url='loginPage')
 def home(request):
