@@ -1,6 +1,7 @@
 {% extends 'main.html' %}
 {% block content %}
-{% if request.user.is_superuser %}
+<div class="container bg-light p-5">
+    {% if request.user.is_superuser %}
 <ul>
     {% for resume in all_resumes %}
         <li>
@@ -11,12 +12,21 @@
     {% endfor %}
 </ul>
 {% else %}
-    <h2>Your Resumes</h2>
-    <ul>
+<div class="row">
+    <div class="col-2">
+        <h2 class=""> {{request.user}} </h2>
+    </div>
+    <div class="col-10">
+        <p><b>Email:</b> {{request.user.email}}</p>
+        <p><b>Resume:</b>
         {% for resume in all_resumes %}
-            <li> {{resume.user.username}}'s Resume -
-                <a href="{% url 'view_resume' resume.id %}" target="_blank">View Resume</a> | <a href="{% url 'delete_resume' resume.id %}">Delete Resume</a> </li>
+            <a href="{% url 'view_resume' resume.id %}" target="_blank">View Resume</a> | <a href="{% url 'delete_resume' resume.id %}">Delete Resume</a><br>
         {% endfor %}
-    </ul>
+        </p>
+        <p><b>Applied Jobs:</b></p>
+    </div>
+</div>
+
     {% endif %}
+</div>
 {% endblock content %}
