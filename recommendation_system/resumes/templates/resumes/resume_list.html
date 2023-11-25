@@ -19,9 +19,7 @@
     <div class="col-10">
         <p><b>Email:</b> {{request.user.email}}</p>
         <p><b>Resume:</b>
-        {% for resume in all_resumes %}
             <a href="{% url 'view_resume' resume.id %}" target="_blank">View Resume</a> | <a href="{% url 'delete_resume' resume.id %}">Delete Resume</a><br>
-        {% endfor %}
         </p>
         <p><b>Applied Jobs:</b>
             {% if applied_jobs %}

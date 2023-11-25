@@ -27,9 +27,9 @@ def resume_list(request):
         all_resumes = Resume.objects.all()
     else:
         user = request.user
-        all_resumes = Resume.objects.filter(user=user)
+        resume = Resume.objects.filter(user=user).order_by('-id').first()
         applied_jobs = JobApplication.objects.filter(user=user)
-        context ={'applied_jobs': applied_jobs, 'all_resumes': all_resumes}
+        context ={'applied_jobs': applied_jobs, 'resume': resume}
     
     return render(request, 'resumes/resume_list.html', context)
 
