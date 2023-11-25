@@ -23,7 +23,16 @@
             <a href="{% url 'view_resume' resume.id %}" target="_blank">View Resume</a> | <a href="{% url 'delete_resume' resume.id %}">Delete Resume</a><br>
         {% endfor %}
         </p>
-        <p><b>Applied Jobs:</b></p>
+        <p><b>Applied Jobs:</b>
+            {% if applied_jobs %}
+        <ul>
+            {% for application in applied_jobs %}
+                <li>{{ application.job.title }} - Applied at {{ application.created_at }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You haven't applied to any jobs yet.</p>
+    {% endif %}
     </div>
 </div>
 

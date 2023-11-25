@@ -1,4 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
+
+from jobs.models import JobApplication
 from .models import Resume
 from .forms import ResumeUploadForm
 from django.http import HttpResponse, HttpResponseForbidden
@@ -24,9 +26,12 @@ def resume_list(request):
     if request.user.is_superuser:
         all_resumes = Resume.objects.all()
     else:
-        all_resumes = Resume.objects.filter(user=request.user)
+        user = request.user
+        all_resumes = Resume.objects.filter(user=user)
+        applied_jobs = JobApplication.objects.filter(user=user)
+        context ={'applied_jobs': applied_jobs, 'all_resumes': all_resumes}
     
-    return render(request, 'resumes/resume_list.html', {'all_resumes': all_resumes})
+    return render(request, 'resumes/resume_list.html', context)
 
 
 def view_resume(request, resume_id):
