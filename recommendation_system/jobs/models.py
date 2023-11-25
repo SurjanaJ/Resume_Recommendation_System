@@ -11,7 +11,6 @@ class JobDescription(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
-
     def time_elapsed(self):
         return naturaltime(self.created_date)
     

@@ -1,4 +1,5 @@
 {% extends 'main.html' %} {% block content %}
+
 <div class="container p-5 bg-light">
   <div class="display-6 mb-5">Jobs Posted</div>
   {% if admin_jobs %}
@@ -11,11 +12,19 @@
           <p class="card-text">{{ job.description }}</p>
 
           <div class="d-flex justify-content-between">
-            <a
-              href="{{ job.pdf_file.url }}"
-              class="btn btn-outline-primary btn-sm"
-              >View Full Description</a
-            >
+            <div class="row">
+              <div class="col">
+                <a
+                  href="{{ job.pdf_file.url }}"
+                  class="btn btn-outline-primary btn-sm"
+                >
+                  Description</a
+                >
+              </div>
+              <div class="col">
+                <div onclick="openCandidateModal('{{ job.id }}')" class="btn btn-sm btn-outline-primary">Candidates</div>
+              </div>
+            </div>
 
             <div class="d-flex justify-content-between gap-3">
               <a
@@ -46,6 +55,20 @@
   {% else %}
   <p>No job posts created by admin.</p>
   {% endif %}
+</div>
+
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeCandidateModal()">&times;</span>
+    <h2 id="jobTitle">Candidates for {{ job.title }}</h2>
+    <div id="candidatesContent">
+      <ul>
+        {% for candidate in candidates %}
+          <li>{{ candidate }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
 </div>
 
 {% endblock content %}

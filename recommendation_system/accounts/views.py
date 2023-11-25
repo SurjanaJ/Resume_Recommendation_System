@@ -80,3 +80,11 @@ def is_admin(user):
 def admin_profile(request):
     admin_jobs = JobDescription.objects.filter(created_by = request.user)
     return render(request, 'accounts/admin_profile.html', {'admin_jobs': admin_jobs})
+
+
+def get_candidates(request, job_id):
+    # Replace the logic below with your actual logic for fetching candidates
+    job_applications = JobApplication.objects.filter(job__id=job_id)
+    candidates = [application.user.username for application in job_applications]
+
+    return render(request, 'accounts/admin_profile.html', {'candidates': candidates})

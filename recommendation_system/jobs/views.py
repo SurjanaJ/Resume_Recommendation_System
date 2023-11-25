@@ -59,3 +59,11 @@ def update_job(request, job_id):
         form = JobDescriptionForm(instance=job)
 
     return render(request, 'jobs/update_job.html', {'form': form, 'job': job})
+
+def view_job(request, job_id):
+    job = get_object_or_404(JobDescription, id=job_id)
+
+    with open(job.pdf_file.path, 'rb') as pdf_file:
+        response = HttpResponse(pdf_file.read(), content_type='application/pdf')
+        response['Content-Disposition'] = f'inline; filename={job.pdf_file.name}'
+        return response

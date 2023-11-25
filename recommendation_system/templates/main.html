@@ -10,6 +10,7 @@
       crossorigin="anonymous"
     />
     <title>JobWiz</title>
+
     <style>
       .job-card {
         transition: box-shadow 0.3s ease;
@@ -24,19 +25,52 @@
       }
 
       .styled-link {
-    text-decoration: none;
-    color: #007bff; /* Change the color as needed */
-    font-weight: bold;
-    transition: color 0.3s ease; /* Smooth color transition on hover */
-}
+        text-decoration: none;
+        color: #007bff; /* Change the color as needed */
+        font-weight: bold;
+        transition: color 0.3s ease; /* Smooth color transition on hover */
+      }
 
-.styled-link:hover {
-    color: #0056b3; /* Change the hover color as needed */
-}
+      .styled-link:hover {
+        color: #0056b3; /* Change the hover color as needed */
+      }
+
+      /* Add this CSS to your styles or in a style tag in the head of your HTML */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+      }
+
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
     </style>
   </head>
   <body class="bg-secondary-subtle">
-    {% include 'navbar.html' %} {% block content %} {% endblock content %} 
+    {% include 'navbar.html' %} {% block content %} {% endblock content %}
     {%include 'footer.html' %}
     <script>
       document.addEventListener("DOMContentLoaded", function () {
@@ -51,6 +85,47 @@
           });
         });
       });
+    </script>
+    <script>
+      // Add this JavaScript to your script or in a script tag at the bottom of your HTML body
+      function openCandidateModal() {
+        var modal = document.getElementById("myModal");
+        var jobTitleElement = document.getElementById("jobTitle");
+        jobTitleElement.innerText = jobTitle; // Set the job title
+        modal.style.display = "block";
+        // Update the content inside the modal dynamically
+        fetchCandidates(jobId);
+      }
+
+      function closeCandidateModal() {
+        document.getElementById("myModal").style.display = "none";
+      }
+
+      // Close the modal if the user clicks outside of it
+      window.onclick = function (event) {
+        var modal = document.getElementById("myModal");
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+
+      function fetchCandidates(jobId) {
+        var candidatesContent = document.getElementById("candidatesContent");
+        candidatesContent.innerHTML = "Loading..."; // Replace with your loading indicator
+        // Use Django views URL to fetch candidates
+        var candidatesUrl = "/get_candidates/" + jobId + "/";
+        // Example using Fetch API:
+        fetch(candidatesUrl)
+          .then((response) => response.text())
+          .then((data) => {
+            // Update the modal content with the fetched data
+            candidatesContent.innerHTML = data;
+          })
+          .catch((error) => {
+            console.error("Error fetching candidates:", error);
+            candidatesContent.innerHTML = "Error fetching candidates.";
+          });
+      }
     </script>
     <script
       src="https://kit.fontawesome.com/01571c4cf7.js"
