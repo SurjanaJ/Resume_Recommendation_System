@@ -24,12 +24,10 @@
                   <li class="nav-item">
                       <a class="nav-link" href="{% url 'upload_resume' %}">Upload Resume</a>
                   </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{% url 'resume_list' %}">List Resume</a>
-                  </li>
+                
                   <li class="nav-item">
                       {% if not user.is_superuser %}
-                          <a href="{% url 'profile' %}" class="nav-link">User Profile</a>
+                          <a href="{% url 'resume_list' %}" class="nav-link">User Profile</a>
                       {% else %}
                           <a href="{% url 'admin_profile' %}" class="nav-link">Profile</a>
                       {% endif %}
@@ -43,7 +41,7 @@
           </ul>
           {% if user.is_authenticated %}
               <span style="text-transform: capitalize;">{{request.user}} </span>
-              <span><a href="{% url 'logoutUser' %}">Logout</a></span>
+              <span class="styled-link"><a href="{% url 'logoutUser' %}">Logout</a></span>
           {% endif %}
           
       </div>
